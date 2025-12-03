@@ -89,3 +89,20 @@ export class AppController {
   }
 }
 
+
+ @Get()
+  async list (@Query()query: QueryBlogDto){
+
+    const blog = await this.prisma.blog.findMany({
+      skip: query.skip,
+      take: query.take,
+
+      where: { 
+        title:{
+          contains: query.title
+        }
+
+      }
+    })
+    return blog
+  } ////code for pagination
